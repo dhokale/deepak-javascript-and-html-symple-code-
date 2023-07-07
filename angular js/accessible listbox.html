@@ -1,0 +1,44 @@
+    <!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Accessible Single Selection Listbox Example with AngularJS</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="myController">
+  <div class="listbox">
+  <select ng-modal="selectedOption"     ng-keydown="handleSelection()" aria-label="select your option ">
+      <option value="">-- Select your food  --</option>
+      <option ng-repeat="option in options" value="{{option.value}}">{{option.label}}</option>
+    </select>
+  </div>
+
+  <script>
+    angular.module('myApp', [])
+      .controller('myController', function($scope) {
+        $scope.options = [
+          { value: '1', label: 'Salad' },
+          { value: '2', label: 'Sandwich' },
+          { value: '3', label: 'Bread' },
+          { value: '4', label: 'Steak' },
+          { value: '5', label: 'Tuna Steak' },
+          { value: '6', label: 'fish' },
+          { value: '7', label: 'Shrimp' },
+          { value: '8', label: 'rice' },
+          { value: '9', label: 'Spaghetti' }
+
+        ];
+
+        $scope.handleSelection = function() {
+          var selectedValue = $scope.selectedOption;
+
+          
+          console.log("Selected value:", selectedValue);
+        };
+      });
+  </script>
+</body>
+
+</html>

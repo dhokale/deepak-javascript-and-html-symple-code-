@@ -1,0 +1,52 @@
+<!DOCTYPE html>  
+<html>  
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>  
+<body ng-app=""ng-controller="ListboxController">  
+<div >
+  <label for="listbox">Select an option:</label>
+  <div
+    role="listbox"
+    id="listbox"
+    tabindex="0" ng-keypress="onListboxKeypress($event)">
+    <div
+      role="option"
+      ng-repeat="option in options"
+      ng-class="{ 'selected': option === selectedOption }"
+      ng-click="selectOption(option)"
+      ng-keypress="onOptionKeypress($event, option)"
+    >
+      {{ option }}
+    </div>
+  </div>
+</div>
+<script>
+angular.module("app", []).controller("ListboxController", function ($scope) {
+  $scope.options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  $scope.selectedOption = null;
+
+  $scope.selectOption = function (option) {
+    $scope.selectedOption = option;
+  };
+
+  $scope.onListboxKeypress=function (event) {
+    const { key } = event;
+    const currentIndex = $scope.options.indexOf($scope.selectedOption);
+
+    if (key === "ArrowDown" && currentIndex < $scope.options.length - 1) {
+      $scope.selectOption($scope.options[currentIndex + 1]);
+    } else if (key === "ArrowUp" && currentIndex > 0) {
+      $scope.selectOption($scope.options[currentIndex - 1]);
+    }
+  };
+
+  $scope.onOptionKeypress = function (event, option) {
+    const { key } = event;
+
+    if (key === "Enter" || key === "Space") {
+      $scope.selectOption(option);
+    }
+  };
+});
+</script>
+</body>  
+</html>  
