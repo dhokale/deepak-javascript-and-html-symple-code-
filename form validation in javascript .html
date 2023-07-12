@@ -2,7 +2,9 @@
 <html>
 
 <body>
+    
 <form name="my form" onsubmit="return validation()">
+    
 <label for="user">Username</label>
 <input type="text"id="user" autocomplete="on" name="username"> <span id="user name"></span><br>
 <label for="pass">Password</label>
@@ -14,6 +16,7 @@
 <label for="emailid"> Email Id:</label>
 <input type="text" value="" id="emailid" autocomplete="on" name="eid"> <span id ="email" > </span><br>
 <input type="submit" value="submit">
+<p id="message"></p>
 </form>
 
 <script>
@@ -101,10 +104,10 @@ document.getElementById("email").innerHTML="** . is invalid postion"
 return false;
 }
 else{
-alert("done")
+    alert("Form is submitted successfully!");
 return true;
 }
-	
+
 }
 </script>
 
