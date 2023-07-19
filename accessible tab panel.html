@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
 <title> Example of tabs</title>
@@ -6,17 +6,16 @@
 <body>
 <h1> Here is the example of accessible tab</h1>
 <div>
-<div role="tablist" aria-label="Romantick poyem">
-<button role="tab" aria-selected="true" id="tp" aria-controls="tp_tab">
+<ul role="tablist" aria-label="Romantick poyem">
+<li tabindex="0" role="tab" aria-selected="true" id="tp" aria-controls="tp_tab">
 Time has past since I saw you 
-</button>
-<button role="tab" aria-selected="false" tabindex="-1" id="fl" aria-controls="fl_tab">
+</li>
+<li role="tab"tabindex="-1"  aria-selected="false" id="fl" aria-controls="fl_tab">
 feeling 
-</button>
-<button role="tab" aria-selected="false" tabindex="-1" id="mi" aria-controls="mi_tab">
-Moons in Your Eyes
-</button>
-</div>
+</li>
+<li role="tab" tabindex="-1" aria-selected="false"  id="mi" aria-controls="mi_tab">
+Moons in Your Eyes </li>
+</ul>
 <div tabindex="0" role="tabpanel" id="tp_tab">
 <p> Time has passed since I saw you
 Thoughts of you are stronger now
@@ -101,6 +100,60 @@ They are my sanity, my happy place!
 </div>
 
 </div>
+<script>
+    var tab=document.querySelectorAll('[role="tab"]');
+    var tabpanel=document.querySelectorAll('[role="tabpanel"]');
+    var tablist=document.querySelector('[role="tablist"]');
+    var counter=0;
+    tablist.addEventListener("keydown", handelKeyDown);
+    function handelKeyDown(event){
+        switch(event.keyCode) {
+case 37:
+if(document.activeElement === tab[0]) {
+tab[tab.length-1].focus();
+counter = tab.length-1;
+}
+else {
+tab[counter].previousElementSibling.focus();
+counter--;
+}
+break;
+case 39:
+if(document.activeElement === tab[tab.length-1]) {
+tab[0].focus();
+counter = 0;
+}
+else {
+tab[counter].nextElementSibling.focus();
+counter++;
+}
 
+break;
+case 35:
+tab[tab.length-1].focus();
+counter = tab.length-1;
+break;
+case 36:
+tab[0].focus();
+counter = 0;
+break;
+default:
+break;
+}
+    }
+    tablist.addEventListener("click", handelClick);
+
+function handelClick(event) {
+for(var i = 0; i < tab.length;i++) {
+tab[i].setAttribute("aria-selected","false");
+tab[i].setAttribute("tabindex","-1");
+tabpanel[i].setAttribute("hidden","");
+}
+
+document.activeElement.setAttribute("aria-selected","true");
+document.activeElement.removeAttribute("tabindex");
+document.getElementById(document.activeElement.getAttribute("aria-controls")).removeAttribute("hidden");
+}
+</script>
 </body>
 </html>
